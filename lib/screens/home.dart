@@ -59,9 +59,9 @@ class _HomeState extends State<Home> {
         ),
         body: const TabBarView(
             children: [
-              SharedGridWidget(),
-              SharedGridWidget(),
-              SharedGridWidget(),
+              GridViewWidget(),
+              GridViewWidget(),
+              GridViewWidget(),
             ]
         )
       ),

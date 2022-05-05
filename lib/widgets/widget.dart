@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/utils/color.dart';
 
-class SharedGridWidget extends StatelessWidget {
-  const SharedGridWidget({Key? key}) : super(key: key);
+class GridViewWidget extends StatelessWidget {
+  const GridViewWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
