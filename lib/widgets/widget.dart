@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wallpaper_app/controllers/wallpaper_controller.dart';
 import 'package:wallpaper_app/model/wallpaper_model.dart';
 import 'package:wallpaper_app/screens/wallpaper_screen.dart';
 import 'package:wallpaper_app/utils/color.dart';
@@ -51,8 +52,10 @@ class GridViewWidget extends StatelessWidget {
 }
 
 class SetButton extends StatelessWidget {
+  final WallpaperController wallpaperController;
+  final Wallpaper wallpaper;
   const SetButton({
-    Key? key,
+    Key? key, required this.wallpaper, required this.wallpaperController
   }) : super(key: key);
 
   @override
@@ -86,6 +89,7 @@ class SetButton extends StatelessWidget {
                   ),
                   ListTile(
                     onTap: () {
+                      wallpaperController.setOnHomeScreen(wallpaper.urls.regular);
                       Get.back();
                     },
                     leading: const Icon(
@@ -99,6 +103,7 @@ class SetButton extends StatelessWidget {
                   ),
                   ListTile(
                     onTap: () {
+                      wallpaperController.setOnLockScreen(wallpaper.urls.regular);
                       Get.back();
                     },
                     leading: const Icon(
@@ -112,6 +117,7 @@ class SetButton extends StatelessWidget {
                   ),
                   ListTile(
                     onTap: () {
+                      wallpaperController.setOnHomeANDLOckScreen(wallpaper.urls.regular);
                       Get.back();
                     },
                     leading: const Icon(

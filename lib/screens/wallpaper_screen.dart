@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wallpaper_app/model/wallpaper_model.dart';
 import 'package:wallpaper_app/utils/color.dart';
+import '../controllers/wallpaper_controller.dart';
 import '../widgets/widget.dart';
 
 class WallpaperScreen extends StatelessWidget {
@@ -35,26 +36,36 @@ class WallpaperScreen extends StatelessWidget {
                   },
                   iconData: Icons.arrow_back_ios,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: pink,
-                      child: WallpaperScreenButton(
-                          onPressed: () {},
-                          color: white,
-                          iconData: Icons.file_download_outlined),
-                    ),
-                    SetButton(),
-                    CircleAvatar(
-                      backgroundColor: white,
-                      child: WallpaperScreenButton(
-                          onPressed: () {},
-                          color: pink,
-                          iconData: Icons.favorite_border),
-                    )
-                  ],
-                )
+                GetBuilder<WallpaperController>(
+                    init: WallpaperController(),
+                    builder: (controller) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: pink,
+                            child: WallpaperScreenButton(
+                                onPressed: () {
+                                  controller.downloadWallpaper(
+                                      wallpaper.urls.regular);
+                                },
+                                color: white,
+                                iconData: Icons.file_download_outlined),
+                          ),
+                          SetButton(
+                            wallpaper: wallpaper,
+                            wallpaperController: controller,
+                          ),
+                          CircleAvatar(
+                            backgroundColor: white,
+                            child: WallpaperScreenButton(
+                                onPressed: () {},
+                                color: pink,
+                                iconData: Icons.favorite_border),
+                          )
+                        ],
+                      );
+                    })
               ],
             ),
           )
@@ -63,4 +74,3 @@ class WallpaperScreen extends StatelessWidget {
     );
   }
 }
-

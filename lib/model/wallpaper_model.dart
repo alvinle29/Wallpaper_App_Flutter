@@ -1,5 +1,8 @@
 import 'url_model.dart';
+import 'package:hive/hive.dart';
+part 'wallpaper_model.g.dart';
 
+@HiveType(typeId: 0)
 class Wallpaper {
   Wallpaper({
     required this.description,
@@ -7,8 +10,11 @@ class Wallpaper {
     required this.urls,
   });
 
+  @HiveField(0)
   String description;
+  @HiveField(1)
   String altDescription;
+  @HiveField(2)
   Urls urls;
 
   factory Wallpaper.fromJson(Map<String, dynamic> json) => Wallpaper(

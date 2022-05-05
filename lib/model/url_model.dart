@@ -1,10 +1,15 @@
+import 'package:hive/hive.dart';
+part 'url_model.g.dart';
+
+@HiveType(typeId: 10)
 class Urls {
   Urls({
     required this.regular,
     required this.small,
   });
-
+  @HiveField(10)
   String regular;
+  @HiveField(11)
   String small;
 
   factory Urls.fromJson(Map<String, dynamic> json) => Urls(
