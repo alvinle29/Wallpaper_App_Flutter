@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wallpaper_app/model/wallpaper_model.dart';
+import 'package:wallpaper_app/screens/wallpaper_screen.dart';
 import 'package:wallpaper_app/utils/color.dart';
 
 class GridViewWidget extends StatelessWidget {
@@ -19,16 +21,28 @@ class GridViewWidget extends StatelessWidget {
             childAspectRatio: 2 / 2.7,
           ),
           itemCount: 10,
-          itemBuilder: (context, index) => Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: pink,
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () {
+              Get.to(() => WallpaperScreen(
+                wallpaper: wallpapers[index],
+              ));
+            },
+                child: ClipRRect(
+            child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: pink,
+                ),
+                child: Hero(
+                  tag: wallpapers[index].urls.regular,
+                  child: Image.network(
+                    wallpapers[index].urls.small,
+                    fit: BoxFit.cover,
+                  ),
+                ),
             ),
-            child: Image.network(
-              wallpapers[index].urls.small,
-              fit: BoxFit.cover,
-            ),
-          )
+          ),
+              )
       ),
     );
   }

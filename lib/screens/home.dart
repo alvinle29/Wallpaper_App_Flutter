@@ -50,10 +50,6 @@ class _HomeState extends State<Home> {
                   "POPULAR",
                   style: links,
                 ),
-                Text(
-                  "OLDS",
-                  style: links,
-                ),
               ]),
         ),
         body: GetBuilder<HomeController>(
