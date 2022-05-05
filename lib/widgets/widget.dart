@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app/model/wallpaper_model.dart';
 import 'package:wallpaper_app/utils/color.dart';
 
 class GridViewWidget extends StatelessWidget {
-  const GridViewWidget({Key? key}) : super(key: key);
+  final List<Wallpaper> wallpapers;
+  const GridViewWidget({Key? key, required this.wallpapers}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,10 @@ class GridViewWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: pink,
+            ),
+            child: Image.network(
+              wallpapers[index].urls.small,
+              fit: BoxFit.cover,
             ),
           )
       ),

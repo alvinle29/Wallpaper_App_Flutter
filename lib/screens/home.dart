@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wallpaper_app/model/category_model.dart';
 import 'package:wallpaper_app/utils/color.dart';
 import 'package:wallpaper_app/utils/style.dart';
 import '../widgets/widget.dart';
+import 'package:get/get.dart';
+import 'package:wallpaper_app/controllers/home_controller.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,12 +14,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  List<CategoryModel> categories = [];
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -57,13 +56,27 @@ class _HomeState extends State<Home> {
                 ),
               ]),
         ),
-        body: const TabBarView(
-            children: [
-              GridViewWidget(),
-              GridViewWidget(),
-              GridViewWidget(),
-            ]
-        )
+        body: GetBuilder<HomeController>(
+          init: HomeController(),
+          initState: (_) {},
+          builder: (controller) {
+            return TabBarView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                controller.state
+                    ? const Center(child: CircularProgressIndicator(),)
+                    : GridViewWidget(
+                  wallpapers: controller.todayList,
+                ),
+                controller.state
+                    ? const Center(child: CircularProgressIndicator(),)
+                    : GridViewWidget(
+                  wallpapers: controller.popularList,
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

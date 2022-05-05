@@ -1,24 +1,24 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:wallpaper/models/wallpaper.dart';
-import 'package:wallpaper/view/utils/constants/const.dart';
+import 'wallpaper_model.dart';
+import 'package:wallpaper_app/utils/variable.dart';
 
 class API {
   Future<List<dynamic>> getJsonDataFromApi(String url) async {
     Uri uri = Uri.parse(url);
     var response = await http.get(uri);
-    var parsedData = jsonDecode(response.body) as List<dynamic>;
-    print(parsedData);
-    return parsedData;
+    var data = jsonDecode(response.body) as List<dynamic>;
+    print(data);
+    return data;
   }
 
-  Future<List<Wallpaper>> convertJsonToObject(int pagenumber) async {
-    List<dynamic> list = await getJsonDataFromApi(api + "&$pagenumber");
-    List<Wallpaper> wallpapaers = [];
+  Future<List<Wallpaper>> convertJsonToObject(String url) async {
+    List<dynamic> list = await getJsonDataFromApi(url);
+    List<Wallpaper> wallpapers = [];
     for (var wallpaper in list) {
-      wallpapaers.add(Wallpaper.fromJson(wallpaper));
+      wallpapers.add(Wallpaper.fromJson(wallpaper));
     }
-    return wallpapaers;
+    return wallpapers;
   }
 }
