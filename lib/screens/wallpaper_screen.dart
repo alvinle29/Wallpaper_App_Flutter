@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wallpaper_app/model/wallpaper_model.dart';
 import 'package:wallpaper_app/utils/color.dart';
+import '../controllers/favorite_controller.dart';
 import '../controllers/wallpaper_controller.dart';
 import '../widgets/widget.dart';
 
@@ -56,12 +57,27 @@ class WallpaperScreen extends StatelessWidget {
                             wallpaper: wallpaper,
                             wallpaperController: controller,
                           ),
-                          CircleAvatar(
-                            backgroundColor: white,
-                            child: WallpaperScreenButton(
-                                onPressed: () {},
-                                color: pink,
-                                iconData: Icons.favorite_border),
+                          GetBuilder<FavoriteController>(
+                            init: FavoriteController(),
+                            initState: (con) {
+                              Future.delayed(const Duration(seconds: 0))
+                                  .then((value) {
+                                con.controller!.inTheList(wallpaper.urls.regular);
+                              });
+                            },
+                            builder: (controller) {
+                              return CircleAvatar(
+                                backgroundColor: white,
+                                child: WallpaperScreenButton(
+                                    onPressed: () {
+                                      controller.favoriteToggler(wallpaper);
+                                    },
+                                    color: pink,
+                                    iconData: controller.isFavorite
+                                        ? Icons.favorite
+                                        : Icons.favorite_border),
+                              );
+                            },
                           )
                         ],
                       );

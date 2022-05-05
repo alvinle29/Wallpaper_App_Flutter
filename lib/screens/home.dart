@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app/screens/search.dart';
 import 'package:wallpaper_app/utils/color.dart';
 import 'package:wallpaper_app/utils/style.dart';
 import '../widgets/widget.dart';
 import 'package:get/get.dart';
 import 'package:wallpaper_app/controllers/home_controller.dart';
+import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -30,17 +32,31 @@ class _HomeState extends State<Home> {
           elevation: 0,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () => showSearch(context: context, delegate: Search()),
               icon: const Icon(
                 Icons.search,
                 color: grey,
               ),
             ),
           ],
-          bottom: const TabBar(
-              indicatorColor: Colors.transparent,
-              labelColor: pink,
-              unselectedLabelColor: grey,
+          bottom: TabBar(
+              isScrollable: true,
+              indicatorColor: Colors.red,
+              labelColor: Colors.black,
+              indicator: DotIndicator(
+                color: Colors.black,
+                distanceFromCenter: 16,
+                radius: 3,
+                paintingStyle: PaintingStyle.fill,
+              ),
+              unselectedLabelColor: Colors.black.withOpacity(0.3),
+              labelStyle: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+              labelPadding: EdgeInsets.symmetric(
+                horizontal: 24,
+              ),
               tabs: [
                 Text(
                   "TODAY",
@@ -63,11 +79,15 @@ class _HomeState extends State<Home> {
                     ? const Center(child: CircularProgressIndicator(),)
                     : GridViewWidget(
                   wallpapers: controller.todayList,
+                  scrollController: controller.todayScrollController,
+
                 ),
                 controller.state
                     ? const Center(child: CircularProgressIndicator(),)
                     : GridViewWidget(
                   wallpapers: controller.popularList,
+                  scrollController: controller.popularScrollController,
+
                 ),
               ],
             );

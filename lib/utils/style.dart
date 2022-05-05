@@ -7,8 +7,8 @@ const h1 = TextStyle(
 );
 
 const links = TextStyle(
-  fontSize: 16,
-  fontWeight: FontWeight.w700,
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
 );
 
 const buttons = TextStyle(

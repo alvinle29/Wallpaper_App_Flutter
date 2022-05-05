@@ -9,13 +9,15 @@ import '../utils/style.dart';
 
 class GridViewWidget extends StatelessWidget {
   final List<Wallpaper> wallpapers;
-  const GridViewWidget({Key? key, required this.wallpapers}) : super(key: key);
+  final ScrollController scrollController;
+  const GridViewWidget({Key? key, required this.wallpapers, required this.scrollController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 30, right: 30, bottom: 0, left: 30),
       child: GridView.builder(
+          controller: scrollController,
           physics: const BouncingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -25,28 +27,28 @@ class GridViewWidget extends StatelessWidget {
           ),
           itemCount: 10,
           itemBuilder: (context, index) => GestureDetector(
-            onTap: () {
-              Get.to(() => WallpaperScreen(
-                wallpaper: wallpapers[index],
-              ));
-            },
+                onTap: () {
+                  Get.to(() => WallpaperScreen(
+                        wallpaper: wallpapers[index],
+                      ));
+                },
                 child: ClipRRect(
-            child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: pink,
-                ),
-                child: Hero(
-                  tag: wallpapers[index].urls.regular,
-                  child: Image.network(
-                    wallpapers[index].urls.small,
-                    fit: BoxFit.cover,
+                  borderRadius: BorderRadius.circular(16),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: pink,
+                    ),
+                    child: Hero(
+                      tag: wallpapers[index].urls.regular,
+                      child: Image.network(
+                        wallpapers[index].urls.small,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
-            ),
-          ),
-              )
-      ),
+              )),
     );
   }
 }
@@ -54,9 +56,9 @@ class GridViewWidget extends StatelessWidget {
 class SetButton extends StatelessWidget {
   final WallpaperController wallpaperController;
   final Wallpaper wallpaper;
-  const SetButton({
-    Key? key, required this.wallpaper, required this.wallpaperController
-  }) : super(key: key);
+  const SetButton(
+      {Key? key, required this.wallpaper, required this.wallpaperController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,72 +68,75 @@ class SetButton extends StatelessWidget {
             backgroundColor: Colors.transparent,
             context: context,
             builder: (context) => Container(
-              decoration: const BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10))),
-              height: Get.height * 0.4,
-              child: ListView(
-                children: [
-                  ListTile(
-                    onTap: () {
-                      Get.back();
-                    },
-                    leading: const Text(
-                      "Set Wallpaper as :",
-                      style: h1,
-                    ),
-                    trailing: const Icon(
-                      Icons.cancel_outlined,
-                      color: black,
-                    ),
+                  decoration: const BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10))),
+                  height: Get.height * 0.4,
+                  child: ListView(
+                    children: [
+                      ListTile(
+                        onTap: () {
+                          Get.back();
+                        },
+                        leading: const Text(
+                          "Set Wallpaper as :",
+                          style: h1,
+                        ),
+                        trailing: const Icon(
+                          Icons.cancel_outlined,
+                          color: black,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          wallpaperController
+                              .setOnHomeScreen(wallpaper.urls.regular);
+                          Get.back();
+                        },
+                        leading: const Icon(
+                          Icons.home_filled,
+                          color: black,
+                        ),
+                        title: const Text(
+                          "Home Screen",
+                          style: h1,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          wallpaperController
+                              .setOnLockScreen(wallpaper.urls.regular);
+                          Get.back();
+                        },
+                        leading: const Icon(
+                          Icons.lock_open,
+                          color: black,
+                        ),
+                        title: const Text(
+                          "Lock Screen",
+                          style: h1,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          wallpaperController
+                              .setOnHomeANDLOckScreen(wallpaper.urls.regular);
+                          Get.back();
+                        },
+                        leading: const Icon(
+                          Icons.screen_lock_landscape,
+                          color: black,
+                        ),
+                        title: const Text(
+                          "Home & Lock Screen",
+                          style: h1,
+                        ),
+                      ),
+                    ],
                   ),
-                  ListTile(
-                    onTap: () {
-                      wallpaperController.setOnHomeScreen(wallpaper.urls.regular);
-                      Get.back();
-                    },
-                    leading: const Icon(
-                      Icons.home_filled,
-                      color: black,
-                    ),
-                    title: const Text(
-                      "Home Screen",
-                      style: h1,
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () {
-                      wallpaperController.setOnLockScreen(wallpaper.urls.regular);
-                      Get.back();
-                    },
-                    leading: const Icon(
-                      Icons.lock_open,
-                      color: black,
-                    ),
-                    title: const Text(
-                      "Lock Screen",
-                      style: h1,
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () {
-                      wallpaperController.setOnHomeANDLOckScreen(wallpaper.urls.regular);
-                      Get.back();
-                    },
-                    leading: const Icon(
-                      Icons.screen_lock_landscape,
-                      color: black,
-                    ),
-                    title: const Text(
-                      "Home & Lock Screen",
-                      style: h1,
-                    ),
-                  ),
-                ],
-              ),
-            ));
+                ));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(
@@ -158,9 +163,9 @@ class WallpaperScreenButton extends StatelessWidget {
 
   const WallpaperScreenButton(
       {Key? key,
-        required this.onPressed,
-        required this.color,
-        required this.iconData})
+      required this.onPressed,
+      required this.color,
+      required this.iconData})
       : super(key: key);
 
   @override
