@@ -15,7 +15,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -76,19 +75,21 @@ class _HomeState extends State<Home> {
               physics: const BouncingScrollPhysics(),
               children: [
                 controller.state
-                    ? const Center(child: CircularProgressIndicator(),)
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
                     : GridViewWidget(
-                  wallpapers: controller.todayList,
-                  scrollController: controller.todayScrollController,
-
-                ),
+                        wallpapers: controller.todayList,
+                        scrollController: controller.todayScrollController,
+                      ),
                 controller.state
-                    ? const Center(child: CircularProgressIndicator(),)
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
                     : GridViewWidget(
-                  wallpapers: controller.popularList,
-                  scrollController: controller.popularScrollController,
-
-                ),
+                        wallpapers: controller.popularList,
+                        scrollController: controller.popularScrollController,
+                      ),
               ],
             );
           },
@@ -97,16 +98,6 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 /*
 Container(
@@ -133,4 +124,3 @@ Icon(Icons.search),
 ),
 ),
 */
-

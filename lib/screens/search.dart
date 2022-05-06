@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:wallpaper_app/widgets/widget.dart';
 
+import '../controllers/search_controller.dart';
 import '../model/API.dart';
 import '../model/wallpaper_model.dart';
 import '../utils/variable.dart';
@@ -44,7 +47,7 @@ class Search extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    if (query != null && data.contains(query.toLowerCase())) {
+    /*if (query != null && data.contains(query.toLowerCase())) {
       return ListTile(
         title: Text(query),
         onTap: () {},
@@ -56,7 +59,19 @@ class Search extends SearchDelegate {
         title: Text("No results found"),
         onTap: () {},
       );
-    }
+    }*/
+
+    return GetBuilder<SearchController>(
+        init: SearchController(),
+        initState: (_) {},
+        builder: (controller) {
+          return Scaffold(
+            body: GridViewWidget(
+              wallpapers: controller.searchList,
+              scrollController: controller.searchScrollController,
+            ),
+          );
+        });
   }
 
   @override

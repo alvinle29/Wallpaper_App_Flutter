@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 import 'package:wallpaper_app/model/API.dart';
 import '../model/wallpaper_model.dart';
 import '../utils/variable.dart';

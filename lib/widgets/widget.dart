@@ -25,7 +25,7 @@ class GridViewWidget extends StatelessWidget {
             crossAxisSpacing: 30,
             childAspectRatio: 2 / 2.7,
           ),
-          itemCount: 10,
+          itemCount: wallpapers.length,
           itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   Get.to(() => WallpaperScreen(

@@ -28,4 +28,5 @@ class Wallpaper {
     "alt_description": altDescription,
     "urls": urls.toJson(),
   };
+
 }
