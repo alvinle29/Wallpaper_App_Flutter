@@ -1,32 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get.dart';
 import 'package:wallpaper_app/widgets/widget.dart';
-
 import '../controllers/search_controller.dart';
-import '../model/API.dart';
-import '../model/wallpaper_model.dart';
-import '../utils/variable.dart';
 
 class Search extends SearchDelegate {
-  List<String> data = [
-    "android",
-    "windows",
-    "mac",
-    "linux",
-    "parrotOS",
-    "mint"
-  ];
 
-  List<String> recentSearch = [
-
-  ];
-
-  final API _api = API();
-  List<Wallpaper> searchList = [];
-
-  void getSearchList(String query) async {
-    searchList = await _api.convertJsonToObject(api + "&${1}&query=$query");
-  }
+  List<String> recentSearch = [];
+  final SearchController _controller = Get.put(SearchController());
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -47,29 +27,21 @@ class Search extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    /*if (query != null && data.contains(query.toLowerCase())) {
-      return ListTile(
-        title: Text(query),
-        onTap: () {},
-      );
-    } else if (query == "") {
-      return Text("");
-    } else {
-      return ListTile(
-        title: Text("No results found"),
-        onTap: () {},
-      );
-    }*/
+    _controller.updateQuery(query);
 
     return GetBuilder<SearchController>(
         init: SearchController(),
         initState: (_) {},
         builder: (controller) {
           return Scaffold(
-            body: GridViewWidget(
-              wallpapers: controller.searchList,
-              scrollController: controller.searchScrollController,
-            ),
+            body: controller.state
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : GridViewWidget(
+                    wallpapers: controller.searchList,
+                    scrollController: controller.searchScrollController,
+                  ),
           );
         });
   }

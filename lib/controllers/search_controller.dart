@@ -8,18 +8,23 @@ class SearchController extends BaseController {
   final API _api = API();
   List<Wallpaper> searchList = [];
   final ScrollController searchScrollController = ScrollController();
+  var query = '';
 
-  void getSearchList() async {
-    const query = 'book';
+  updateQuery(var newQuery){
+    query = newQuery;
+    getSearchList(query);
+  }
+
+  Future<void> getSearchList(String query) async {
     setState(true);
+    print("run!!!!");
     searchList = await _api.convertJsonToSearchObject(api_search + "&${1}&query=$query");
-    print(query);
     setState(false);
   }
 
   @override
   void onInit() {
-    getSearchList();
     super.onInit();
+    getSearchList(query);
   }
 }

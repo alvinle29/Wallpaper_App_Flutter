@@ -7,7 +7,6 @@ class API {
     Uri uri = Uri.parse(url);
     var response = await http.get(uri);
     var data = jsonDecode(response.body) as List<dynamic>;
-    print(data);
     return data;
   }
 
@@ -16,7 +15,6 @@ class API {
     var response = await http.get(uri);
     Map<String, dynamic> map = json.decode(response.body);
     List<dynamic> data = map["results"];
-    print(data);
     return data;
   }
 
@@ -35,6 +33,7 @@ class API {
     for (var wallpaper in list) {
       wallpapers.add(Wallpaper.fromJson(wallpaper));
     }
+    print(wallpapers);
     return wallpapers;
   }
 }
