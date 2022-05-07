@@ -9,6 +9,7 @@ class SearchController extends BaseController {
   List<Wallpaper> searchList = [];
   final ScrollController searchScrollController = ScrollController();
   var query = '';
+  var searchPageNumber = 1;
 
   updateQuery(var newQuery){
     query = newQuery;
@@ -17,14 +18,33 @@ class SearchController extends BaseController {
 
   Future<void> getSearchList(String query) async {
     setState(true);
-    print("run!!!!");
     searchList = await _api.convertJsonToSearchObject(api_search + "&${1}&query=$query");
     setState(false);
+  }
+
+  void loadMoreData() {
+    searchScrollController.addListener(() async {
+      if (searchScrollController.position.pixels ==
+          searchScrollController.position.maxScrollExtent) {
+        await addMoreDataToSearchList();
+      }
+    });
+  }
+
+
+  Future<void> addMoreDataToSearchList() async {
+    setLoadState(true);
+    List<Wallpaper> wallpapers = [];
+    wallpapers = await _api.convertJsonToSearchObject(api_search + "&page=$searchPageNumber&query=$query");
+    searchPageNumber++;
+    searchList.addAll(wallpapers);
+    setLoadState(false);
   }
 
   @override
   void onInit() {
     super.onInit();
     getSearchList(query);
+    loadMoreData();
   }
 }

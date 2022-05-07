@@ -23,8 +23,8 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text(
-            "Wallpaper",
-            style: h1,
+            "Wally",
+            style: appName,
           ),
           centerTitle: true,
           backgroundColor: white,
@@ -81,6 +81,7 @@ class _HomeState extends State<Home> {
                     : GridViewWidget(
                         wallpapers: controller.todayList,
                         scrollController: controller.todayScrollController,
+                        isLoading: controller.loadState,
                       ),
                 controller.state
                     ? const Center(
@@ -89,7 +90,8 @@ class _HomeState extends State<Home> {
                     : GridViewWidget(
                         wallpapers: controller.popularList,
                         scrollController: controller.popularScrollController,
-                      ),
+                        isLoading: controller.loadState,
+                ),
               ],
             );
           },

@@ -37,11 +37,12 @@ class HomeController extends BaseController {
   }
 
   Future<void> addMoreDataToTodayList() async {
+    setLoadState(true);
     List<Wallpaper> wallpapers = [];
     wallpapers = await _api.convertJsonToObject(api + "&page=$todayPageNumber");
     todayPageNumber++;
     todayList.addAll(wallpapers);
-    update();
+    setLoadState(false);
   }
 
   @override

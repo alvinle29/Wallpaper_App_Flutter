@@ -41,7 +41,8 @@ class Search extends SearchDelegate {
                 : GridViewWidget(
                     wallpapers: controller.searchList,
                     scrollController: controller.searchScrollController,
-                  ),
+                    isLoading: controller.loadState,
+            ),
           );
         });
   }

@@ -42,7 +42,8 @@ dependencies:
   flutter_wallpaper_manager: ^0.0.3
   tab_indicator_styler: ^2.0.0
   flutter_icons: ^1.1.0
-
+  image_gallery_saver: ^1.7.1
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:

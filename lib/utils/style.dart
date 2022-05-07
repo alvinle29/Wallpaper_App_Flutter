@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'color.dart';
 
@@ -15,4 +16,9 @@ const buttons = TextStyle(
   color: white,
   fontWeight: FontWeight.bold,
   fontFamily: 'Ubuntu',
+);
+
+const appName = TextStyle(
+  color: Colors.blue,
+  fontWeight: FontWeight.w600,
 );

@@ -1,5 +1,9 @@
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:wallpaper_app/model/wallpaper_model.dart';
 import 'package:wallpaper_app/utils/color.dart';
 import '../controllers/favorite_controller.dart';
@@ -49,6 +53,7 @@ class WallpaperScreen extends StatelessWidget {
                                 onPressed: () {
                                   controller.downloadWallpaper(
                                       wallpaper.urls.regular);
+                                  _save(wallpaper.urls.regular);
                                 },
                                 color: white,
                                 iconData: Icons.file_download_outlined),
@@ -89,4 +94,14 @@ class WallpaperScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+_save(String url) async {
+  var response = await Dio().get(url,
+      options: Options(responseType: ResponseType.bytes));
+  final result = await ImageGallerySaver.saveImage(
+      Uint8List.fromList(response.data),
+      quality: 60,
+      name: "hello");
+  print(result);
 }
