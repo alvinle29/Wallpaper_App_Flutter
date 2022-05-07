@@ -16,6 +16,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  bool showBtn = false;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
