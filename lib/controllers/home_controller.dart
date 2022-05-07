@@ -8,22 +8,12 @@ class HomeController extends BaseController {
   final API _api = API();
 
   List<Wallpaper> todayList = [];
-  List<Wallpaper> popularList = [];
-
   final ScrollController todayScrollController = ScrollController();
-  final ScrollController popularScrollController = ScrollController();
-
   int todayPageNumber = 2;
 
   void getTodayList() async {
     setState(true);
     todayList = await _api.convertJsonToObject(api + "&${1}");
-    setState(false);
-  }
-
-  void getPopularList() async {
-    setState(true);
-    popularList = await _api.convertJsonToObject(api + "&${1}&order_by=popular");
     setState(false);
   }
 
@@ -48,7 +38,6 @@ class HomeController extends BaseController {
   @override
   void onInit() {
     getTodayList();
-    getPopularList();
     loadMoreData();
     super.onInit();
   }

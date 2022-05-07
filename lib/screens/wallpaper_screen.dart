@@ -6,9 +6,10 @@ import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:wallpaper_app/model/wallpaper_model.dart';
 import 'package:wallpaper_app/utils/color.dart';
+import '../buttons/set_wallpaper_button.dart';
+import '../buttons/wallpaper_screen_button.dart';
 import '../controllers/favorite_controller.dart';
 import '../controllers/wallpaper_controller.dart';
-import '../widgets/widget.dart';
 
 class WallpaperScreen extends StatelessWidget {
   final Wallpaper wallpaper;
@@ -58,7 +59,7 @@ class WallpaperScreen extends StatelessWidget {
                                 color: white,
                                 iconData: Icons.file_download_outlined),
                           ),
-                          SetButton(
+                          SetWallpaperButton(
                             wallpaper: wallpaper,
                             wallpaperController: controller,
                           ),
@@ -103,5 +104,4 @@ _save(String url) async {
       Uint8List.fromList(response.data),
       quality: 60,
       name: "hello");
-  print(result);
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wallpaper_app/widgets/widget.dart';
+import 'package:wallpaper_app/widgets/grid_view_widget.dart';
 import '../controllers/search_controller.dart';
 
 class Search extends SearchDelegate {

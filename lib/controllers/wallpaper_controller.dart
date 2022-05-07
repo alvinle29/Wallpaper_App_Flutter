@@ -17,7 +17,7 @@ class WallpaperController extends DownloadController {
 
   // Set
   Future<void> setOnHomeScreen(String url) async {
-    var filePath = await cachWallaper(url);
+    var filePath = await getWallpaper(url);
     await homeScreen(filePath.path);
     Get.showSnackbar(const GetSnackBar(
       title: 'Done',
@@ -27,7 +27,7 @@ class WallpaperController extends DownloadController {
   }
 
   Future<void> setOnLockScreen(String url) async {
-    var filePath = await cachWallaper(url);
+    var filePath = await getWallpaper(url);
 
     await lockScreen(filePath.path);
     Get.showSnackbar(const GetSnackBar(
@@ -37,8 +37,8 @@ class WallpaperController extends DownloadController {
     ));
   }
 
-  Future<void> setOnHomeANDLOckScreen(String url) async {
-    var filePath = await cachWallaper(url);
+  Future<void> setOnHomeAndLockScreen(String url) async {
+    var filePath = await getWallpaper(url);
     await homeScreen(filePath.path);
     await lockScreen(filePath.path);
     Get.showSnackbar(const GetSnackBar(
@@ -59,15 +59,14 @@ class WallpaperController extends DownloadController {
         path, WallpaperManager.LOCK_SCREEN);
   }
 
-  Future<void> lockAndhomeScreen(String path) async {
+  Future<void> lockAndHomeScreen(String path) async {
     await WallpaperManager.setWallpaperFromFile(
         path, WallpaperManager.HOME_SCREEN);
     await WallpaperManager.setWallpaperFromFile(
         path, WallpaperManager.LOCK_SCREEN);
   }
 
-// download first
-  Future<File> cachWallaper(String url) async {
+  Future<File> getWallpaper(String url) async {
     var file = await DefaultCacheManager().getSingleFile(url);
     return file;
   }

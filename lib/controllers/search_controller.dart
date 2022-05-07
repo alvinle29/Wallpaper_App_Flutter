@@ -9,7 +9,7 @@ class SearchController extends BaseController {
   List<Wallpaper> searchList = [];
   final ScrollController searchScrollController = ScrollController();
   var query = '';
-  var searchPageNumber = 1;
+  var searchPageNumber = 2;
 
   updateQuery(var newQuery){
     query = newQuery;
@@ -30,7 +30,6 @@ class SearchController extends BaseController {
       }
     });
   }
-
 
   Future<void> addMoreDataToSearchList() async {
     setLoadState(true);

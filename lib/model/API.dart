@@ -33,7 +33,6 @@ class API {
     for (var wallpaper in list) {
       wallpapers.add(Wallpaper.fromJson(wallpaper));
     }
-    print(wallpapers);
     return wallpapers;
   }
 }
