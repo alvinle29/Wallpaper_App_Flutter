@@ -4,11 +4,18 @@ A Wallpaper app, we can see wallpapers in the app, search wallpapers, and also s
 
 ## App Demonstration
 
-Load wallpapers:
+###Load wallpapers:
+
 ![](https://github.com/alvinle29/Wallpaper_App_Flutter/blob/master/home_screen.gif)
-Set wallpapers:
+
+###Set wallpapers:
+
 ![](https://github.com/alvinle29/Wallpaper_App_Flutter/blob/master/set_as_screen.gif)
-Save favorite wallpapers:
+
+###Save favorite wallpapers:
+
 ![](https://github.com/alvinle29/Wallpaper_App_Flutter/blob/master/favorite_screen.gif)
-Search for wallpapers:
+
+###Search for wallpapers:
+
 ![](https://github.com/alvinle29/Wallpaper_App_Flutter/blob/master/search.gif)
